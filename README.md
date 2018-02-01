@@ -1,2 +1,2 @@
-# redVelvetProject
-Elimination of aggressive comments
+# RedVelvetProject
+Forestall aggressive comments
