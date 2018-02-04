@@ -1,22 +1,22 @@
 import Foundation
 
 // Trie class import
-class TrieNode<T: Hashable> {
-    var value: T?
-    weak var parentNode: TrieNode?
-    var children: [T: TrieNode] = [:]
-    var isTerminating = false
-    var isLeaf: Bool {
-        return children.count == 0
+class TrieNode<T: Hashable> {           // Node is component of the trie
+    var value: T?                       // Value is the letter stored in each Node
+    weak var parentNode: TrieNode?      // The node above that is linked with current Node
+    var children: [T: TrieNode] = [:]   // The node below that is linked with current Node
+    var isTerminating = false           // Whether the node is terminating
+    var isLeaf: Bool {                  // Leaf means the node with no children, Just like leaves on trees
+        return children.count == 0      // If the node has no children, then it's a leaf node
         
     }
     
-    init(value: T? = nil, parentNode: TrieNode? = nil) {
-        self.value = value
-        self.parentNode = parentNode
+    init(value: T? = nil, parentNode: TrieNode? = nil) { // This is a function to initialize the node
+        self.value = value                               // Just for initialization
+        self.parentNode = parentNode                     // Just for initialization
     }
 
-    func add(value: T) {
+    func add(value: T) {                                 // This is a function that adds a node
         guard children[value] == nil else {
             return
         }
