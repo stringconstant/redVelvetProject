@@ -1,20 +1,28 @@
 import UIKit
 
+// "var" is for defining a variable. A variable stores a value that you can change afterward
+// "let" is for defining a constant. A constant stores a value that you cannot change afterward
+// "func" is for defining a function. A function takes in (or not) parameters, and do something (like calculation), and returns a value (or not)
+// An array stores several values together
+// A stirng array looks like this ["thing","thing","thing"]
+// An array of numbers looks like this [1,2,3]
+
+
+
 class ViewController: UIViewController {
     
-    var wordTrie = Trie()
+    var wordTrie = Trie() // Trie is a stand-alone file in this project. In order to use it, we need to define a variable that is equal to "Trie.swift" in order to use the functions inside
     
-    @IBOutlet weak var inputText: UITextField!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var commentDisplay: UILabel!
-    
-    
+    @IBOutlet weak var inputText: UITextField!      // This is just a reference of the text Box on the screen
+    @IBOutlet weak var imageView: UIImageView!      // This is just a reference of the image on the screen
+    @IBOutlet weak var commentDisplay: UILabel!     // This is just a reference of comment display area on the screen
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        var wordlist = [String]()
+    
+    
+    override func viewDidLoad() {   // If you want to see something on the screen right after the app is loaded, write code inside
+        super.viewDidLoad()         // Don't need to understand this
+        var wordlist = [String]()   // An array of string
         if let path = Bundle.main.url(forResource: "wordList", withExtension: "txt"){
             do{
                 let data = try String(contentsOf: path, encoding: .utf8)
