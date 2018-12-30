@@ -1,6 +1,5 @@
 import Foundation
 
-// Trie class import
 class TrieNode<T: Hashable> {           // Node is component of the trie
     var value: T?                       // Value is the letter stored in each Node
     weak var parentNode: TrieNode?      // The node above that is linked with current Node
@@ -100,39 +99,7 @@ extension Trie {
         return currentNode.isTerminating
     }
     
-    private func findLastNodeOf(word: String) -> Node? {
-        var currentNode = root
-        for character in word.lowercased().characters {
-            guard let childNode = currentNode.children[character] else {
-                return nil
-            }
-            currentNode = childNode
-        }
-        return currentNode
-    }
-    
 
-    private func findTerminalNodeOf(word: String) -> Node? {
-        if let lastNode = findLastNodeOf(word: word) {
-            return lastNode.isTerminating ? lastNode : nil
-        }
-        return nil
-        
-    }
-
-    private func deleteNodesForWordEndingWith(terminalNode: Node) {
-        var lastNode = terminalNode
-        var character = lastNode.value
-        while lastNode.isLeaf, let parentNode = lastNode.parentNode {
-            lastNode = parentNode
-            lastNode.children[character!] = nil
-            character = lastNode.value
-            if lastNode.isTerminating {
-                break
-            }
-        }
-    }
-    
 
     func remove(word: String) {
         guard !word.isEmpty else {
@@ -147,36 +114,5 @@ extension Trie {
             terminalNode.isTerminating = false
         }
         wordCount -= 1
-    }
-
-    fileprivate func wordsInSubtrie(rootNode: Node, partialWord: String) -> [String] {
-        var subtrieWords = [String]()
-        var previousLetters = partialWord
-        if let value = rootNode.value {
-            previousLetters.append(value)
-        }
-        if rootNode.isTerminating {
-            subtrieWords.append(previousLetters)
-        }
-        for childNode in rootNode.children.values {
-            let childWords = wordsInSubtrie(rootNode: childNode, partialWord: previousLetters)
-            subtrieWords += childWords
-        }
-        return subtrieWords
-    }
-
-    func findWordsWithPrefix(prefix: String) -> [String] {
-        var words = [String]()
-        let prefixLowerCased = prefix.lowercased()
-        if let lastNode = findLastNodeOf(word: prefixLowerCased) {
-            if lastNode.isTerminating {
-                words.append(prefixLowerCased)
-            }
-            for childNode in lastNode.children.values {
-                let childWords = wordsInSubtrie(rootNode: childNode, partialWord: prefixLowerCased)
-                words += childWords
-            }
-        }
-        return words
     }
 }
